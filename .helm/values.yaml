@@ -9,7 +9,7 @@ replicaCount: 1
 image:
   repository: rg.fr-par.scw.cloud/devopsbeerer/dashboard
   pullPolicy: IfNotPresent
-  tag: v0.1.0
+  tag: latest
 
 serviceAccount:
   create: true
