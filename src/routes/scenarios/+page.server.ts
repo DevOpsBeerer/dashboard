@@ -17,6 +17,8 @@ export interface ScenarioDefinition {
         helmChart?: {
             link: string;
         };
+        features: string[]
+        tags: string[]
     };
     status?: {
         phase?: string;
@@ -30,8 +32,11 @@ export const load: PageServerLoad = async () => {
 
         // Load config from default location (in-cluster or ~/.kube/config)
         try {
+            console.log("Load from default");
+            
             kc.loadFromDefault(); // Try kubeconfig first for local development
         } catch (clusterErr) {
+                console.error('Failed to load kubeconfig:', { clusterErr });
             try {
                 kc.loadFromCluster(); // Fall back to in-cluster config
             } catch (defaultErr) {
@@ -92,7 +97,9 @@ export const load: PageServerLoad = async () => {
                 description: scenario.spec.description,
                 flag: 'Available',
                 namespace: scenario.metadata.namespace,
-                phase: scenario.status?.phase || 'Unknown'
+                phase: scenario.status?.phase || 'Unknown',
+                features: scenario.spec.features,
+                tags: scenario.spec.tags
             }))
         };
     } catch (err) {

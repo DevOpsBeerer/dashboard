@@ -1,13 +1,11 @@
 <script>
 	import { Check } from '@lucide/svelte';
+	import Code from '$lib/Code.svelte';
 
-	let { flag = '', name, description, features = [], scenarioId } = $props();
+	let { tags = [], name, description, features = [], scenarioId } = $props();
 </script>
 
 <div class="scenario-card">
-	{#if flag !== ''}
-		<span class="flag">{flag}</span>
-	{/if}
 	<h1>{name}</h1>
 	<p>{description}</p>
 
@@ -20,13 +18,17 @@
 		{/each}
 	</div>
 
+	{#if tags.length > 0}
+		<div class="tags">
+			{#each tags as tag}
+				<span class="tag">{tag}</span>
+			{/each}
+		</div>
+	{/if}
+
 	<div class="play">
 		Play scenario:
-		<div class="code">
-			$ <span class="primary"
-				><a href="https://www.devopsbeerer.ch/" target="_blank">dbeerer</a></span
-			> start {scenarioId}
-		</div>
+		<Code code="dbeerer start {scenarioId}" />
 	</div>
 </div>
 

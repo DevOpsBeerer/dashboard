@@ -1,5 +1,7 @@
 <script lang="ts">
 	import ScenarioCard from '$lib/ScenarioCard.svelte';
+	import NoScenarioDefinition from '$lib/NoScenarioDefinition.svelte';
+
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
@@ -9,19 +11,15 @@
 	{#if data.scenarios && data.scenarios.length > 0}
 		{#each data.scenarios as scenario}
 			<ScenarioCard
-				flag={scenario.flag}
+				tags={scenario.tags}
 				name={scenario.name}
 				description={scenario.description}
 				scenarioId={scenario.id}
+				features={scenario.features}
 			/>
 		{/each}
 	{:else}
-		<ScenarioCard
-			flag="No Scenarios"
-			name="No ScenarioDefinitions Found"
-			description="No ScenarioDefinitions are currently available in the cluster."
-			scenarioId="no-scenarios"
-		/>
+		<NoScenarioDefinition />
 	{/if}
 </div>
 

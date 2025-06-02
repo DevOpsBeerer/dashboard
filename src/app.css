@@ -32,7 +32,13 @@ main {
     color: var(--primary-color);
 }
 
-.flag {
+.tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tag {
     background-color: rgba(237, 188, 81, 0.25);
     color: #EDBC51;
     width: fit-content;
